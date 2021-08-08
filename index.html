@@ -37,18 +37,19 @@
           </span>
           <span @mouseover="todos[ind].btn = true" @mouseout="todos[ind].btn = false">
             <span>{{ todo.title }}</span>
-            <span class="edit-btn btn" v-show="todos[ind].btn">[編集]</span>
+            <span class="edit-btn btn" v-show="todos[ind].btn" @click="editModal(ind)">[編集]</span>
             <span class="delete-btn btn" v-show="todos[ind].btn" @click="todos.splice(ind, 1)">[x]</span>
           </span>
         </li>
       </ul>
-      <section class="modal-window">
-        <div class="edit-modal">
+      <section class="modal-window" v-if="isModalDisplay">
+        <form class="edit-modal" @submit.prevent>
           <select>
             <option v-for="(s, key) in statusList" value="key">{{ s }}</option>
           </select>
-          <p>sssssss</p>
-        </div>
+          <textarea v-model="editModalWindow"></textarea>
+          <input type="submit" value="編集" @click="changeTodo">
+        </form>
         
         <div id="mask"></div>
       </section>

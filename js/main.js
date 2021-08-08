@@ -20,6 +20,9 @@
       },
       dueDate: '',
       btn: false,
+      editModalWindow: '',
+      isModalDisplay: false,
+      editedIndex: null
     },
     computed: {
 
@@ -72,6 +75,15 @@
         this.todos[i].status = this.changeSelect;
         this.changeStatus(i);
       },
+      editModal: function(i) {
+        this.isModalDisplay = true;
+        this.editModalWindow = this.todos[i].title; 
+        this.editedIndex = i;
+      },
+      changeTodo: function() {
+        this.todos[this.editedIndex].title = this.editModalWindow;
+        this.isModalDisplay = false;
+      }
     }
   });
 }
