@@ -1,0 +1,104 @@
+html, body, main, h1, p {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #b0c4de;
+  color: #4682b4;
+  height: 80px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+header h1 {
+  width: 1000px;
+  margin: 0 auto;
+  line-height: 80px;
+}
+
+main {
+  margin-top: 80px;
+  background: #eee;
+  min-height: calc(100vh - 80px);
+}
+
+.container {
+  margin: 0 auto;
+  width: 1000px;
+}
+
+form {
+  padding: 60px 0 30px 0;
+}
+
+input[type="text"] {
+  box-sizing: border-box;
+  height: 25px;
+  min-width: 300px;
+  border-radius: 5px;
+  margin-left:5px;
+  border: 2px solid #4682B4;
+  outline: none;
+}
+
+select {
+  display: inline-block;
+  height: 25px;
+  width: 70px;
+  border-radius: 5px;
+  border: 2px solid #4682B4;
+  outline: none;
+}
+
+form label {
+  line-height: 25px
+}
+
+form input[type="submit"] {
+  background-color: #B0C4DE;
+  border: 1px solid #4682B4;
+  cursor: pointer;
+  border-radius: 3px;
+  margin-top: 10px;
+  padding: 5px 10px;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+ul li {
+  margin-bottom: 7px;
+}
+
+input.completed {
+  opacity: .6;
+}
+
+ul li > span.status-text {
+  display: inline-block;
+  cursor: pointer;
+  background: #d0d0d0;
+  text-align: center;
+  width: 70px;
+  height: 25px;
+  line-height: 25px;
+  font-size: 12px;
+  border-radius: 5px;
+}
+
+.btn {
+  font-size: 12px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  text-decoration: underline;
+}
+
+li .delete-btn {
+  color: red;
+}
