@@ -3,25 +3,8 @@ html, body, main, h1, p {
   padding: 0;
 }
 
-header {
+body {
   background: #b0c4de;
-  color: #4682b4;
-  height: 80px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
-header h1 {
-  width: 1000px;
-  margin: 0 auto;
-  line-height: 80px;
-}
-
-main {
-  margin-top: 80px;
-  background: #eee;
-  min-height: calc(100vh - 80px);
 }
 
 .container {
@@ -29,23 +12,55 @@ main {
   width: 1000px;
 }
 
+header {
+  width: 100%;
+}
+
+header h1 {
+  line-height: 80px;
+  color: #fff;
+  width: 1000px;
+  margin: 0 auto;
+}
+
 form {
   padding: 60px 0 30px 0;
 }
-
 input[type="text"] {
   box-sizing: border-box;
-  height: 25px;
-  min-width: 300px;
-  border-radius: 5px;
-  margin-left:5px;
+  height: 30px;
   border: 2px solid #4682B4;
   outline: none;
+  border-radius: 5px;
+}
+
+.sort input[type="button"] {
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+input[type="text"].todo-text {
+  min-width: 300px;
+  margin-left:5px;
+}
+.vdp-datepicker {
+  display: inline-block;
+}
+.vdp-datepicker input {
+  width: 100px;
+}
+
+label.is-due {
+  cursor: pointer;
 }
 
 select {
   display: inline-block;
-  height: 25px;
+  height: 30px;
   width: 70px;
   border-radius: 5px;
   border: 2px solid #4682B4;
@@ -57,12 +72,13 @@ form label {
 }
 
 form input[type="submit"] {
-  background-color: #B0C4DE;
-  border: 1px solid #4682B4;
+  background-color: #4682B4;
+  border: none;
   cursor: pointer;
   border-radius: 3px;
   margin-top: 10px;
   padding: 5px 10px;
+  color: white;
 }
 
 ul {
@@ -80,11 +96,11 @@ input.completed {
 ul li > span.status-text {
   display: inline-block;
   cursor: pointer;
-  background: #d0d0d0;
+  background: #fff;
   text-align: center;
   width: 70px;
-  height: 25px;
-  line-height: 25px;
+  height: 30px;
+  line-height: 30px;
   font-size: 12px;
   border-radius: 5px;
 }
@@ -106,16 +122,18 @@ li .delete-btn {
 textarea {
   box-sizing: border-box;
   height: 60px;
-  min-width: 300px;
+  width: 300px;
   border-radius: 5px;
+  margin-top: 10px;
   margin-left:5px;
   border: 2px solid #4682B4;
   outline: none;
 }
+
 .modal-window .edit-modal {
   background-color: white;
-  width: 500px;
-  height: 200px;
+  width: 600px;
+  height: 300px;
   border-radius: 10px;
   position: absolute;
   top: 100px;
@@ -123,6 +141,19 @@ textarea {
   right: 0;
   margin: 0 auto;
   z-index: 15;
+}
+
+.edit-modal form {
+  margin: 0 auto;
+  width: 300px;
+}
+
+.fa-times {
+  font-size: 30px;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
 }
 
 #mask {

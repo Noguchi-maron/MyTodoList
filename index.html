@@ -5,59 +5,72 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Todo list</title>
+  <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header>
-    <h1>Todo List</h1>
-  </header>
+  <div class="container" id="app">
 
-  <main>
-    <div class="container" id="app">
+    <header>
+      <h1>Todo List</h1>
+    </header>
+  
+    <main>
       <form @submit.prevent="">
         <select name="status" v-model="select">
           <option v-for="(status, index) in statusList" :value="index">{{ status }}</option>
         </select>
-        <input type="text" v-model="newTodo">
-        <label><input type="checkbox" name="date" v-model="isDue" @click="setDate">期限</label>
-        <span >
-          <input type="date" v-model="dueDate" v-show="isDue" >
+        <input type="text" v-model="newTodo" ref="text_input" placeholder="Todoの追加" class="todo-text">
+        <label class="is-due"><input type="checkbox" name="date" v-model="isDue" @click="setDate">期限あり</label>
+        <span>
+          <vuejs-datepicker v-model="dueDate" v-show="isDue" format="yyyy-MM-dd"></vuejs-datepicker>
         <br>
         <input type="submit" value="追加" @click="addTodo">
       </form>
 
+      <sort-form :todos="todos" @status-sort="statusSort" @due-sort="dueSort"></sort-form>
+
       <ul>
         <li v-for="(todo, ind) in todos">
-          <span v-show="todos[ind].fixedStatus" class="status-text" @click="changeStatus(ind)">{{ statusList[todo.status] }}</span>
+          <span v-show="!todos[ind].isStatus" class="status-text" @click="changeStatus(ind)">{{ statusList[todo.status] }}</span>
           <span v-show="todos[ind].isStatus">
-            <select v-model="changeSelect" @change="fixSelect(ind)">
-              <option value="unselected">進捗</option>
+            <select v-model="changeSelect" @change="fixSelect(ind)" @blur="fixSelect(ind)">
               <option v-for="(stat, i) in statusList" :value="i">{{ stat }}</option>
             </select>
           </span>
           <span @mouseover="todos[ind].btn = true" @mouseout="todos[ind].btn = false">
             <span>{{ todo.title }}</span>
-            <span class="edit-btn btn" v-show="todos[ind].btn" @click="editModal(ind)">[編集]</span>
+            <span v-show="todos[ind].isDue">({{ `${todo.showDueDate.month} / ${todo.showDueDate.date}` }})</span>
+            <span class="edit-btn btn" v-show="todos[ind].btn" @click="editModal(ind)">[詳細]</span>
             <span class="delete-btn btn" v-show="todos[ind].btn" @click="todos.splice(ind, 1)">[x]</span>
           </span>
         </li>
       </ul>
+
       <section class="modal-window" v-if="isModalDisplay">
-        <form class="edit-modal" @submit.prevent>
-          <select>
-            <option v-for="(s, key) in statusList" value="key">{{ s }}</option>
-          </select>
-          <textarea v-model="editModalWindow"></textarea>
-          <input type="submit" value="編集" @click="changeTodo">
-        </form>
+        <div class="edit-modal">
+          <i class="fas fa-times" @click="changeTodo"></i>
+          <form @submit.prevent="">
+            <label class="is-due"><input type="checkbox" name="date" v-model="editIsDue" @click="setDate">期限あり</label>
+            <vuejs-datepicker v-show="editIsDue" v-model="editDueDate"  format="yyyy-MM-dd" ></vuejs-datepicker>
+            <br>
+            <textarea v-model="editText" ref="edit_area" class="todo-text"></textarea>
+            <br>
+            <input type="submit" value="保存" @click="changeTodo">
+          </form>
+        </div>
         
-        <div id="mask"></div>
+        <div id="mask" @click="changeTodo"></div>
       </section>
-      <pre>{{ $data }}</pre>
-    </div>
-  </main>
+    </main>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://unpkg.com/vuejs-datepicker"></script>
+  <script src="https://momentjs.com/downloads/moment.js"></script>
   <script src="js/main.js"></script>
+  <script>
+    // document.querySelector('container').style.height = document.documentElement.clientHeight + 'px';
+  </script>
 </body>
 </html>
