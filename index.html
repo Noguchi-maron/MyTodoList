@@ -31,7 +31,7 @@
       <sort-form :todos="todos" @status-sort="statusSort" @due-sort="dueSort"></sort-form>
 
       <ul>
-        <li v-for="(todo, ind) in todos">
+        <li v-for="(todo, ind) in todos" :key="todo.id">
           <span v-show="!todos[ind].isStatus" class="status-text" @click="changeStatus(ind)">{{ statusList[todo.status] }}</span>
           <span v-show="todos[ind].isStatus">
             <select v-model="changeSelect" @change="fixSelect(ind)" @blur="fixSelect(ind)">

@@ -45,6 +45,7 @@
     data: {
       newTodo: '',
       todos: [],
+      nextIndex: 0,
       statusList: ['未着手', '進行中', '完了'],
       select: 0,
       changeSelect: 0,
@@ -114,6 +115,7 @@
         }
         const todo = {
           title: this.newTodo,
+          id: this.nextIndex++,
           status: this.select,
           isStatus: false,
           isDue: this.isDue,
