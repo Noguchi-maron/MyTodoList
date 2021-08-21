@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <div class="container" id="app">
+  <div id="app" v-cloak>
 
     <header>
       <h1>Todo List</h1>
@@ -28,8 +28,10 @@
         <input type="submit" value="追加" @click="addTodo">
       </form>
 
+      <!-- ソート機能のコンポーネントの読み込み -->
       <sort-form :todos="todos" @status-sort="statusSort" @due-sort="dueSort"></sort-form>
 
+      <!-- TodoListの表示 -->
       <ul>
         <li v-for="(todo, ind) in todos" :key="todo.id">
           <span v-show="!todos[ind].isStatus" class="status-text" @click="changeStatus(ind)">{{ statusList[todo.status] }}</span>
@@ -41,7 +43,7 @@
           <span @mouseover="todos[ind].btn = true" @mouseout="todos[ind].btn = false">
             <span>{{ todo.title }}</span>
             <span v-show="todos[ind].isDue">({{ `${todo.showDueDate.month} / ${todo.showDueDate.date}` }})</span>
-            <span class="edit-btn btn" v-show="todos[ind].btn" @click="editModal(ind)">[詳細]</span>
+            <span class="edit-btn btn" v-show="todos[ind].btn" @click="editModal(ind)">[編集]</span>
             <span class="delete-btn btn" v-show="todos[ind].btn" @click="todos.splice(ind, 1)">[x]</span>
           </span>
         </li>
@@ -50,13 +52,13 @@
       <section class="modal-window" v-if="isModalDisplay">
         <div class="edit-modal">
           <i class="fas fa-times" @click="changeTodo"></i>
-          <form @submit.prevent="">
+          <form @submit.prevent="changeTodo">
             <label class="is-due"><input type="checkbox" name="date" v-model="editIsDue" @click="setDate">期限あり</label>
-            <vuejs-datepicker v-show="editIsDue" v-model="editDueDate"  format="yyyy-MM-dd" ></vuejs-datepicker>
+            <vuejs-datepicker v-show="editIsDue" v-model="editDueDate"  format="yyyy/MM/dd" ></vuejs-datepicker>
             <br>
             <textarea v-model="editText" ref="edit_area" class="todo-text"></textarea>
             <br>
-            <input type="submit" value="保存" @click="changeTodo">
+            <input type="submit" value="保存">
           </form>
         </div>
         
@@ -69,8 +71,5 @@
   <script src="https://unpkg.com/vuejs-datepicker"></script>
   <script src="https://momentjs.com/downloads/moment.js"></script>
   <script src="js/main.js"></script>
-  <script>
-    // document.querySelector('container').style.height = document.documentElement.clientHeight + 'px';
-  </script>
 </body>
 </html>

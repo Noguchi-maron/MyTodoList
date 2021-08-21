@@ -48,30 +48,29 @@
       nextIndex: 0,
       statusList: ['未着手', '進行中', '完了'],
       select: 0,
-      changeSelect: 0,
-      fixedStatus: true,
-      isStatus: false,
       isDue: false,
-      editIsDue: false,
       dateObject: {
         year: 0,
         month: 0,
         date: 0
       },
       dueDate: '',
-      editDueDate: '',
-      btn: false,
-      editText: '',
       isModalDisplay: false,
-      editedIndex: null,
-      DatePickerFormat: 'yyyy-MM-dd',
+      changeSelect: 0,
+      fixedStatus: true,
+      isStatus: false,
+      editIsDue: false,
+      editDueDate: '',
+      editText: '',
+      editedIndex: 0,
+      DatePickerFormat: 'yyyy/MM/dd',
     },
     computed: {
       fixedDueDate () {
-        return moment(this.dueDate).format('YYYY-MM-DD')
+        return moment(this.dueDate).format('yyyy/MM/DD')
       },
       fixedEditDueDate () {
-        return moment(this.editDueDate).format('YYYY-MM-DD')
+        return moment(this.editDueDate).format('yyyy/MM/DD')
       },
       showDue () {
         return{
@@ -106,7 +105,7 @@
         }
         this.setCreateDate();
         const date = this.dateObject;
-        this.dueDate = `${date.year}-${date.month}-${date.date}`;
+        this.dueDate = `${date.year}/${date.month}/${date.date}`;
       },
 
       addTodo: function() {
@@ -120,7 +119,7 @@
           isStatus: false,
           isDue: this.isDue,
           dueDate: this.fixedDueDate,
-          btn: this.btn,
+          btn: false,
           showDueDate: this.showDue
         };
         if (!todo.isDue) {
@@ -141,6 +140,7 @@
         this.todos[i].status = this.changeSelect;
         this.todos[i].isStatus = false;
       },
+      //編集フォームを表示するときに行う処理
       async editModal(i) {
         await(this.isModalDisplay = true)
         this.$refs.edit_area.focus();
@@ -155,15 +155,16 @@
         const date = this.dateObject;
         this.editDueDate = `${date.year}/${date.month}/${date.date}`;
       },
+      //編集を行った後の処理
       changeTodo: function() {
         this.todos[this.editedIndex].title = this.editText;
         this.todos[this.editedIndex].isDue = this.editIsDue;
         this.todos[this.editedIndex].dueDate = this.fixedEditDueDate;
         this.todos[this.editedIndex].showDueDate = this.editShowDue;
         
-        
         this.isModalDisplay = false;
       },
+      //ソート機能
       statusSort (todos) {
         this.todos = todos;
       },
