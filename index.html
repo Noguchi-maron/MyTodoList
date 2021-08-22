@@ -33,18 +33,18 @@
 
       <!-- TodoListの表示 -->
       <ul>
-        <li v-for="(todo, ind) in todos" :key="todo.id">
-          <span v-show="!todos[ind].isStatus" class="status-text" @click="changeStatus(ind)">{{ statusList[todo.status] }}</span>
-          <span v-show="todos[ind].isStatus">
-            <select v-model="changeSelect" @change="fixSelect(ind)" @blur="fixSelect(ind)">
-              <option v-for="(stat, i) in statusList" :value="i">{{ stat }}</option>
+        <li v-for="(todo, i) in todos" :key="todo.id">
+          <span v-show="!todos[i].isStatus" class="status-text" @click="changeStatus(todo)">{{ statusList[todo.status] }}</span>
+          <span v-show="todos[i].isStatus">
+            <select v-model="changeSelect" @change="fixSelect(i)" @blur="fixSelect(todo)">
+              <option v-for="(stat, index) in statusList" :value="index">{{ stat }}</option>
             </select>
           </span>
-          <span @mouseover="todos[ind].btn = true" @mouseout="todos[ind].btn = false">
+          <span @mouseover="todos[i].btn = true" @mouseout="todos[i].btn = false">
             <span>{{ todo.title }}</span>
-            <span v-show="todos[ind].isDue">({{ `${todo.showDueDate.month} / ${todo.showDueDate.date}` }})</span>
-            <span class="edit-btn btn" v-show="todos[ind].btn" @click="editModal(ind)">[編集]</span>
-            <span class="delete-btn btn" v-show="todos[ind].btn" @click="todos.splice(ind, 1)">[x]</span>
+            <span v-show="todos[i].isDue">({{ `${todo.showDueDate.month} / ${todo.showDueDate.date}` }})</span>
+            <span class="edit-btn btn" v-show="todos[i].btn" @click="editModal(todo)">[編集]</span>
+            <span class="delete-btn btn" v-show="todos[i].btn" @click="todos.splice(i, 1)">[x]</span>
           </span>
         </li>
       </ul>

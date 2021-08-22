@@ -131,22 +131,22 @@
         this.isDue = false;
       },
       //statusを訂正するためにselectを表示
-      changeStatus: function(i) {
-        this.todos[i].isStatus = true;
-        this.changeSelect = this.todos[i].status;
+      changeStatus: function(todo) {
+        todo.isStatus = true;
+        this.changeSelect = todo.status;
       },
       //statusの編集と、statusの固定
-      fixSelect: function(i) {
-        this.todos[i].status = this.changeSelect;
-        this.todos[i].isStatus = false;
+      fixSelect: function(todo) {
+        todo.status = this.changeSelect;
+        todo.isStatus = false;
       },
       //編集フォームを表示するときに行う処理
-      async editModal(i) {
+      async editModal(todo) {
         await(this.isModalDisplay = true)
         this.$refs.edit_area.focus();
-        this.editText = this.todos[i].title; 
-        this.editIsDue = this.todos[i].isDue;
-        this.editDueDate = this.todos[i].dueDate;
+        this.editText = todo.title; 
+        this.editIsDue = todo.isDue;
+        this.editDueDate = todo.dueDate;
         this.editedIndex = i;
         if(this.editIsDue) {
           return;
